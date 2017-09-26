@@ -10,10 +10,10 @@ class GameWindow < Gosu::Window
   end
 
   def update
-    @x -= 1 if button_down?(Gosu::KbLeft)
-    @x += 1 if button_down?(Gosu::KbRight)
-    @y -= 1 if button_down?(Gosu::KbUp)
-    @y += 1 if button_down?(Gosu::KbDown)
+    @x -= 1 if button_down?(Gosu::KbLeft) || button_down?(Gosu::KbA)
+    @x += 1 if button_down?(Gosu::KbRight) || button_down?(Gosu::KbD)
+    @y -= 1 if button_down?(Gosu::KbUp) || button_down?(Gosu::KbW)
+    @y += 1 if button_down?(Gosu::KbDown) || button_down?(Gosu::KbS)
   end
 
   def button_down(id)
