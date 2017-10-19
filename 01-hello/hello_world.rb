@@ -4,7 +4,7 @@ class GameWindow < Gosu::Window
   def initialize(width=320, height=240, fullscreen=false)
     super
     self.caption = 'Hello'
-    @message = Gosu::Image.from_text(self, 'Hello, World!', Gosu.default_font_name, 30)
+    @message = Gosu::Image.from_text('Hello, World!', 30, {:font => Gosu.default_font_name})
   end
 
   def draw

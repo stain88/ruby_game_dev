@@ -31,7 +31,7 @@ class GameWindow < Gosu::Window
 
   def draw
     @draws += 1
-    @message = Gosu::Image.from_text(self, info, Gosu.default_font_name, 30)
+    @message = Gosu::Image.from_text(info, 30, {:font => Gosu.default_font_name})
     @message.draw(@x, @y, 0)
   end
 

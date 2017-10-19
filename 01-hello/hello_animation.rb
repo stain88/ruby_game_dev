@@ -53,7 +53,7 @@ class GameWindow < Gosu::Window
   def initialize(width=800, height=600, fullscreen=false)
     super
     self.caption = 'Hello Animation'
-    @background = Gosu::Image.new(self, BACKGROUND, false)
+    @background = Gosu::Image.new(BACKGROUND, false)
     @animation = Explosion.load_animation(self)
     @explosions =[]
   end
