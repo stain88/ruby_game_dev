@@ -29,7 +29,7 @@ class MenuState < GameState
 
   def draw
     @message.draw($window.width / 2 - @message.width / 2, $window.height / 2 - @message.height / 2, 10)
-    @message.draw($window.width / 2 - @message.width / 2, $window.height / 2 - @message.height / 2 + 200, 10)
+    @info.draw($window.width / 2 - @message.width / 2, $window.height / 2 - @message.height / 2 + 200, 10)
   end
 
   def button_down(id)
