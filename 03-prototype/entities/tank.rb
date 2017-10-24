@@ -84,22 +84,22 @@ class Tank
   end
 
   def change_angle(previous_angle, up, down, left, right)
-    if @window.button_down?(up)
+    if $window.button_down?(up)
       angle = 0.0
-      angle -= 45.0 if @window.button_down?(left)
-      angle += 45.0 if @window.button_down?(right)
-    elsif @window.button_down?(down)
+      angle -= 45.0 if $window.button_down?(left)
+      angle += 45.0 if $window.button_down?(right)
+    elsif $window.button_down?(down)
       angle = 180.0
-      angle += 45.0 if @window.button_down?(left)
-      angle -= 45.0 if @window.button_down?(right)
-    elsif @window.button_down?(left)
+      angle += 45.0 if $window.button_down?(left)
+      angle -= 45.0 if $window.button_down?(right)
+    elsif $window.button_down?(left)
       angle = 90.0
-      angle -= 45.0 if @window.button_down?(up)
-      angle += 45.0 if @window.button_down?(down)
-    elsif @window.button_down?(right)
+      angle -= 45.0 if $window.button_down?(up)
+      angle += 45.0 if $window.button_down?(down)
+    elsif $window.button_down?(right)
       angle = 270.0
-      angle += 45.0 if @window.button_down?(up)
-      angle -= 45.0 if @window.button_down?(down)
+      angle += 45.0 if $window.button_down?(up)
+      angle -= 45.0 if $window.button_down?(down)
     end
     angle || previous_angle
   end

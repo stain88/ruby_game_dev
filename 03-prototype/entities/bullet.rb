@@ -3,7 +3,7 @@ class Bullet
   MAX_DIST = 300
   START_DIST = 20
 
-  def initalize(source_x, source_y, target_x, target_y)
+  def initialize(source_x, source_y, target_x, target_y)
     @x, @y = source_x, source_y
     @target_x, @target_y = target_x, target_y
     @x, @y = point_at_distance(START_DIST)

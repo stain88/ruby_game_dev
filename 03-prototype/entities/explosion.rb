@@ -2,7 +2,7 @@ class Explosion
   FRAME_DELAY = 10 # ms
 
   def animation
-    @@animation ||= Gosu::Image.load_tiles($iwndow, Game.media_path('explosion.png'), 128, 128, false)
+    @@animation ||= Gosu::Image.load_tiles($window, Game.media_path('explosion.png'), 128, 128, false)
   end
 
   def sound

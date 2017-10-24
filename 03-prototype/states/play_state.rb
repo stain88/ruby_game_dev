@@ -27,7 +27,7 @@ class PlayState < GameState
     cam_x = @camera.x
     cam_y = @camera.y
     off_x = $window.width / 2 - cam_x
-    off_y = $winodw.height / 2 - cam_y
+    off_y = $window.height / 2 - cam_y
     $window.translate(off_x, off_y) do
       zoom = @camera.zoom
       $window.scale(zoom, zoom, cam_x, cam_y) do
@@ -44,7 +44,7 @@ class PlayState < GameState
       bullet = @tank.shoot(*@camera.mouse_coords)
       @bullets << bullet if bullet
     end
-    $window.cloase if id == Gosu::KbQ
+    $window.close if id == Gosu::KbQ
     if id == Gosu::KbEscape
       GameState.switch(MenuState.instance)
     end
