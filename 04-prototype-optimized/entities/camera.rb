@@ -8,6 +8,7 @@ class Camera
   end
 
   def can_view?(x, y, obj)
+    return true # short circuiting
     x0, x1, y0, y1 = viewport
     (x0 - obj.width..x1).include?(x) && (y0 - obj.height..y1).include?(y)
   end
