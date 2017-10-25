@@ -6,6 +6,7 @@ class GameWindow < Gosu::Window
   end
 
   def update
+    Game.track_update_interval
     @state.update
   end
 
