@@ -36,7 +36,7 @@ class BulletPhysics < Component
   private
 
   def arrived?
-    x == object.target_x && y = object.target_y
+    x == object.target_x && y == object.target_y
   end
 
 end
