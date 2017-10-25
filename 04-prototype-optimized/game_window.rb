@@ -14,6 +14,10 @@ class GameWindow < Gosu::Window
     @state.draw
   end
 
+  def needs_cursor?
+    Game.update_interval > 200
+  end
+
   def needs_redraw?
     @state.needs_redraw?
   end
