@@ -32,7 +32,7 @@ class ExplosionGraphics < Component
   end
 
   def animation
-    @@animation ||= Gosu::Image.load_tiles(Utils.media_path('explosion.png'), 128, 128, false)
+    @@animation ||= Gosu::Image.load_tiles($window, Utils.media_path('explosion.png'), 128, 128, false)
   end
 
 end
