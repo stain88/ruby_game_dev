@@ -11,7 +11,7 @@ class PlayerInput < Component
 
   def update
     d_x, d_y = @camera.target_delta_on_screen
-    atan = Math.atan2(($window.width / 2) - d_x -$window.mouse_x, ($window.height / 2) - d_y - $window.mouse_y)
+    atan = Math.atan2(($window.width / 2) - d_x - $window.mouse_x, ($window.height / 2) - d_y - $window.mouse_y)
     object.gun_angle = -atan * 180 / Math::PI
     motion_buttons = [Gosu::KbW, Gosu::KbS, Gosu::KbA, Gosu::KbD]
 
