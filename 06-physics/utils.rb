@@ -35,4 +35,34 @@ module Utils
     end
   end
 
+  def self.rotate(angle, around_x, around_y, *points)
+    result = []
+    points.each_slice(2) do |x, y|
+      r_x = Math.cos(angle) * (x - around_x) - Math.sin(angle) * (y - around_y) + around_x
+      r_y = Math.sin(angle) * (x - around_x) - Math.cos(angle) * (y - around_y) + around_y
+      result << r_x
+      result << r_y
+    end
+    result
+  end
+
+  def self.point_in_poly(test_x, test_y, *poly)
+    n_vert = poly.size / 2 # Number of vertices in poly
+    vert_x = []
+    vert_y = []
+    poly.each_slice(2) do |x, y|
+      vert_x << x
+      vert_y << y
+    end
+    inside = false
+    j = n_vert - 1
+    (0..n_vert - 1).each do |i|
+      if (((vert_y[i] > test_y) != (vert_y[j] > test_y)) && (test_x < (vert_x[j] - vert_x[i]) * (test_y - vert_y[i]) / (vert_y[j] - vert_y[i]) + vert_x[i]))
+        inside = !inside
+      end
+      j = i
+    end
+    inside
+  end
+
 end
