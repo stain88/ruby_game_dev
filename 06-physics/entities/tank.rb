@@ -1,6 +1,6 @@
 class Tank < GameObject
   SHOOT_DELAY = 500
-  attr_accessor :x, :y, :throttle_down, :direction, :gun_angle, :sounds, :physics
+  attr_accessor :x, :y, :throttle_down, :direction, :gun_angle, :sounds, :physics, :graphics
 
   def initialize(object_pool, input)
     super(object_pool)
@@ -18,6 +18,10 @@ class Tank < GameObject
       @last_shot = Gosu.milliseconds
       Bullet.new(object_pool, @x, @y, target_x, target_y).fire(100)
     end
+  end
+
+  def box
+    @physics.box
   end
 
 end

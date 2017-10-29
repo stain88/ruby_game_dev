@@ -57,6 +57,45 @@ class TankPhysics < Component
     end
   end
 
+  def box_height
+    @box_height ||= object.graphics.height
+  end
+
+  def box_width
+    @box_width ||= object.graphics.width
+  end
+
+  # Tank box looks like H. Vertices:
+  # 1   2   5   6
+  #     3   4
+  #
+  #    10   9
+  # 12 11   8   7
+  def box
+    w = box_width / 2 - 1
+    h = box_height / 2 - 1
+    tw = 8 # track width
+    fd = 8 # front depth
+    rd = 6 # rear depth
+    Utils.rotate(object.direction, x, y,
+                  x + w,      y + h,      #1
+                  x + w - tw, y + h,      #2
+                  x + w - tw, y + h - fd, #3
+
+                  x - w + tw, y + h - fd, #4
+                  x - w + tw, y + h,      #5
+                  x - w,      y + h,      #6
+
+                  x - w,      y - h,      #7
+                  x - w + tw, y - h,      #8
+                  x - w + tw, y - h + rd, #9
+
+                  x + w - tw, y - h + rd, #10
+                  x + w - tw, y - h,      #11
+                  x + w,      y - h,      #12
+                )
+  end
+
   private
 
   def accelerate

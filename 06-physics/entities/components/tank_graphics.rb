@@ -1,5 +1,12 @@
 class TankGraphics < Component
 
+  DEBUG_COLORS = [
+    Gosu::Color::RED,
+    Gosu::Color::BLUE,
+    Gosu::Color::YELLOW,
+    Gosu::Color::WHITE
+  ]
+
   def initialize(game_object)
     super(game_object)
     @body = units.frame('tank1_body.png')
@@ -14,11 +21,20 @@ class TankGraphics < Component
     draw_bounding_box
   end
 
+  def width
+    @body.width
+  end
+
+  def height
+    @body.height
+  end
+
   def draw_bounding_box
-    $window.rotate(object.direction, x, y) do
-      w = @body.width
-      h = @body.height
-      $window.draw_quad(x - w / 2, y - h / 2, Gosu::Color::RED, x + w / 2, y - h / 2, Gosu::Color::RED, x + w / 2, y + h / 2, Gosu::Color::RED, x - w / 2, y + h / 2, Gosu::Color::RED, 100)
+    i = 0
+    object.box.each_slice(2) do |x, y|
+      color = DEBUG_COLORS[i]
+      $window.draw_triangle(x - 3, y - 3, color, x, y, color, x + 3, y - 3, color, 100)
+      i = (i + 1) % 4
     end
   end
 
