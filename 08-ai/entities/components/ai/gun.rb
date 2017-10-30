@@ -31,7 +31,7 @@ class AiGun
         if distance - 50 <= BulletPhysics::MAX_DIST
           target_x, target_y = Utils.point_at_distance(@object.x, @object.y, @object.gun_angle, distance + 10 - rand(0..@accuracy))
           if can_make_new_decision? && @object.can_shoot? && should_shoot?
-            @object.hsoot(target_x, target_y)
+            @object.shoot(target_x, target_y)
           end
         end
       end
