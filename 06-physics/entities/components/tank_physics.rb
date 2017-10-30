@@ -1,5 +1,5 @@
 class TankPhysics < Component
-  attr_accessor :speed
+  attr_accessor :speed, :in_collision, :inertia_x, :inertia_y, :collides_with
 
   def initialize(game_object, object_pool)
     super(game_object)
@@ -16,10 +16,13 @@ class TankPhysics < Component
     return false unless @map.can_move_to?(x, y)
     @object_pool.nearby(object, 100).each do |obj|
       if collides_with_poly?(obj.box)
+        @collides_with = obj
         # Allow to get unstuck
         old_distance = Utils.distance_between(obj.x, obj.y, old_x, old_y)
         new_distance = Utils.distance_between(obj.x, obj.y, x, y)
         return false if new_distance < old_distance
+      else
+        @collides_with = nil
       end
     end
     true
@@ -40,6 +43,7 @@ class TankPhysics < Component
     end
     if @speed > 0
       new_x, new_y = x, y
+      speed = apply_movement_penalty(@speed)
       shift = Utils.adjust_speed(@speed)
       case @object.direction.to_i
       when 0
@@ -65,9 +69,12 @@ class TankPhysics < Component
       end
       if can_move_to?(new_x, new_y)
         object.x, object.y = new_x, new_y
+        @inertia_x = @inertia_y = shift
+        @in_collision = false
       else
-        object.sounds.collide if @speed > 1
+        object.sounds.collide if @speed > 1 && @collides_with.class == Tank
         @speed = 0.0
+        @in_collision = true
       end
     end
   end
@@ -131,12 +138,28 @@ class TankPhysics < Component
   end
 
   def decelerate
-    @speed -= 0.5 if @speed > 0
-    @speed = 0.0 if @speed < 0.01 # damp
+    if @speed > 0
+      @speed = [@speed - 0.5, 0].max
+    elsif @speed < 0
+      @speed = [@speed + 0.5, 0].min
+    end
+    damp_speed
+  end
+
+  def damp_speed
+    @speed = 0.0 if @speed < 0.01
+  end
+
+  def apply_movement_penalty(speed)
+    speed * (1.0 - @map.movement_penalty(x, y))
   end
 
   def collides_with_poly?(poly)
     if poly
+      if poly.size == 2
+        px, py = poly
+        return Utils.point_in_poly(px, py, *box)
+      end
       poly.each_slice(2) do |x, y|
         return true if Utils.point_in_poly(x, y, *box)
       end
@@ -145,6 +168,10 @@ class TankPhysics < Component
       end
     end
     false
+  end
+
+  def collides_with_point?(x, y)
+    Utils.point_in_poly(x, y, box)
   end
 
 end
