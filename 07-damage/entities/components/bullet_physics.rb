@@ -41,6 +41,8 @@ class BulletPhysics < Component
     @object_pool.nearby(object, 50).each do |obj|
       next if obj == object.source # Don't hit source tank
       if Utils.point_in_poly(x, y, *obj.box)
+        # Direct hit - extra damage
+        obj.health.inflict_damage(20)
         object.target_x = x
         object.target_y = y
         return
