@@ -36,7 +36,7 @@ class TankPhysics < Component
   end
 
   def update
-    if object.throttle_down
+    if object.throttle_down && !object.health.dead?
       accelerate
     else
       decelerate
