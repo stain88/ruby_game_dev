@@ -31,16 +31,22 @@ class Map
   end
 
   def draw(viewport)
-    viewport.map! { |p| p / TILE_SIZE }
+    viewport = viewport.map { |p| p / TILE_SIZE }
     x0, x1, y0, y1 = viewport.map(&:to_i)
-    (x0..x1).each do |x|
-      (y0..y1).each do |y|
+    (x0-1..x1).each do |x|
+      (y0-1..y1).each do |y|
         row = @map[x]
+        map_x = x * TILE_SIZE
+        map_y = y * TILE_SIZE
         if row
           tile = @map[x][y]
-          map_x = x * TILE_SIZE
-          map_y = y * TILE_SIZE
-          tile.draw(map_x, map_y, 0)
+          if tile
+            tile.draw(map_x, map_y, 0)
+          else
+            @water.draw(map_x, map_y, 0)
+          end
+        else
+          @water.draw(map_x, map_y, 0)
         end
       end
     end
@@ -62,7 +68,7 @@ class Map
     t_x = ((x / TILE_SIZE) % TILE_SIZE).floor
     t_y = ((y / TILE_SIZE) % TILE_SIZE).floor
     row = @map[t_x]
-    row[t_y] if row
+    row ? row[t_y] : @water
   end
 
   def load_tiles
